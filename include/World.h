@@ -13,7 +13,7 @@ private:
   void setupAnts();
 
   std::vector<Ant> ants;
-  unsigned int width;
-  unsigned int height;
+  const unsigned int width;
+  const unsigned int height;
   static constexpr std::size_t NUM_ANTS = 1;
 };
