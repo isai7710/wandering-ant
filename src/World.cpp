@@ -3,6 +3,7 @@
 
 World::World(unsigned int width, unsigned int height)
     : width(width), height(height) {
+  ants.reserve(NUM_ANTS);
   setupAnts();
 }
 
@@ -19,9 +20,10 @@ void World::draw(sf::RenderWindow &window) {
 }
 
 void World::setupAnts() {
-  for (int i = 0; i < numAnts; i++) {
+  for (int i = 0; i < NUM_ANTS; i++) {
     Ant ant(width, height);
     ant.setPosition(sf::Vector2f(width / 2.f, height / 2.f));
-    ants.push_back(ant);
+    ant.setVelocity(sf::Vector2f(40.0f, 40.0f));
+    ants.push_back(std::move(ant));
   }
 }
