@@ -6,8 +6,8 @@ class Ant : public sf::Drawable {
 public:
   Ant(unsigned int windowWidth, unsigned int windowHeight);
   void setPosition(const sf::Vector2f &p);
-  sf::Vector2f getPosition() const;
   void setVelocity(const sf::Vector2f &v);
+  sf::Vector2f getPosition() const;
   sf::Vector2f getVelocity() const;
   void update(float deltaTime);
 
@@ -18,9 +18,10 @@ private:
   void randomMovement(float deltaTime);
 
   sf::CircleShape triangle;
+  sf::VertexArray directionLine;
+
   sf::Vector2f position;
   sf::Vector2f velocity;
-  sf::Vector2f desiredDirection;
 
   static constexpr float antSize = 10.f;
   static constexpr float maxSpeed = 100.f;
