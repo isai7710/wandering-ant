@@ -13,12 +13,15 @@ set(SOURCES
     main.cpp
     src/Ant.cpp
     src/World.cpp
+    src/WanderBehavior.cpp
 )
 
 # Header files
 set(HEADERS
     include/Ant.h
     include/World.h
+    include/IMovementBehavior.h
+    include/WanderBehavior.h
 )
 
 # Add executable
