@@ -13,6 +13,7 @@ set(SOURCES
     main.cpp
     src/Ant.cpp
     src/World.cpp
+    src/SeekBehavior.cpp
     src/WanderBehavior.cpp
 )
 
@@ -21,6 +22,7 @@ set(HEADERS
     include/Ant.h
     include/World.h
     include/IMovementBehavior.h
+    include/SeekBehavior.h
     include/WanderBehavior.h
 )
 
