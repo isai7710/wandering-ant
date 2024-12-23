@@ -5,9 +5,9 @@ Ant::Ant(unsigned int windowWidth, unsigned int windowHeight)
     : windowWidth(windowWidth), windowHeight(windowHeight),
       directionLine(sf::Lines, 2) {
   triangle.setPointCount(3);
-  triangle.setPoint(0, sf::Vector2f(0, -2 * antSize));   // Top vertex
-  triangle.setPoint(1, sf::Vector2f(-antSize, antSize)); // Bottom-left vertex
-  triangle.setPoint(2, sf::Vector2f(antSize, antSize));  // Bottom-right vertex
+  triangle.setPoint(0, sf::Vector2f(0, -2 * ANT_SIZE));    // Top vertex
+  triangle.setPoint(1, sf::Vector2f(-ANT_SIZE, ANT_SIZE)); // Bottom-left vertex
+  triangle.setPoint(2, sf::Vector2f(ANT_SIZE, ANT_SIZE)); // Bottom-right vertex
 
   directionLine[0].color = sf::Color::Yellow;
   directionLine[1].color = sf::Color::Yellow;
@@ -23,6 +23,23 @@ void Ant::setPosition(const sf::Vector2f &p) {
 void Ant::setVelocity(const sf::Vector2f &v) { velocity = v; }
 
 void Ant::update(float deltaTime) {
+  if (movementBehavior) {
+    // Get movement vector from behavior
+    sf::Vector2f desiredVelocity =
+        movementBehavior->calculateMovement(position, velocity, deltaTime);
+
+    // Apply movement
+    velocity += desiredVelocity * deltaTime;
+
+    // Clamp velocity to max speed
+    if (float speed =
+            std::sqrt(velocity.x * velocity.x + velocity.y * velocity.y);
+        speed > MAX_SPEED) {
+      velocity *= MAX_SPEED / speed;
+    }
+  }
+
+  // Update position and handle collisions
   position += velocity * deltaTime;
   handleBoundaryCollision();
   updateVisuals();
@@ -57,6 +74,7 @@ void Ant::updateVisuals() {
   if (magnitude(velocity) > 0) {
     normalized /= magnitude(velocity);
   }
+  // point directionLine in direction of velocity vector
   directionLine[1].position = position + normalized * 30.f;
 }
 
