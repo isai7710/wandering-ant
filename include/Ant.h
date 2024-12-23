@@ -42,6 +42,7 @@ private:
 
   static constexpr float ANT_SIZE = 7.f;
   static constexpr float MAX_SPEED = 100.f;
+  static constexpr float DIRECTION_LINE_LENGTH = 30.f;
 
   const unsigned int windowWidth;
   const unsigned int windowHeight;

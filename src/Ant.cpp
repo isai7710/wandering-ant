@@ -64,18 +64,17 @@ void Ant::handleBoundaryCollision() {
 void Ant::updateVisuals() {
   triangle.setPosition(position);
 
-  if (magnitude(velocity) > 0) {
+  float currentVelocityMagnitude = magnitude(velocity);
+  if (currentVelocityMagnitude > 0) {
+    sf::Vector2f normalizedVelocityDirection =
+        velocity / currentVelocityMagnitude;
     float angle = std::atan2(velocity.y, velocity.x);
-    triangle.setRotation(angle * 180.f / M_PI + 90);
-  }
 
-  directionLine[0].position = position;
-  sf::Vector2f normalized = velocity;
-  if (magnitude(velocity) > 0) {
-    normalized /= magnitude(velocity);
+    triangle.setRotation(angle * 180 / M_PI + 90);
+    directionLine[0].position = position;
+    directionLine[1].position =
+        position + normalizedVelocityDirection * DIRECTION_LINE_LENGTH;
   }
-  // point directionLine in direction of velocity vector
-  directionLine[1].position = position + normalized * 30.f;
 }
 
 // ----- UTILITY FUNCTIONS -----
