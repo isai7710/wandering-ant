@@ -14,7 +14,7 @@ public:
 private:
   sf::Vector2f targetPosition;
   static constexpr float MAX_VELOCITY = 100.f;
-  static constexpr float MAX_ACCELERATION = 100.f;
+  static constexpr float MAX_ACCELERATION = 4.f;
 
   // Utility functions
   sf::Vector2f normalize(const sf::Vector2f &v);
