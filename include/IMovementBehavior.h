@@ -5,7 +5,7 @@
 class IMovementBehavior {
 public:
   virtual ~IMovementBehavior() = default;
-  virtual sf::Vector2f calculateMovement(const sf::Vector2f &currentPos,
+  virtual sf::Vector2f calculateSteering(const sf::Vector2f &currentPos,
                                          const sf::Vector2f &currentVel,
                                          float deltaTime) = 0;
 };

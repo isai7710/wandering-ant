@@ -7,7 +7,7 @@ WanderBehavior::WanderBehavior() : rng(std::time(nullptr)) {
   wanderTarget = sf::Vector2f(wanderRadius, 0);
 }
 
-sf::Vector2f WanderBehavior::calculateMovement(const sf::Vector2f &currentPos,
+sf::Vector2f WanderBehavior::calculateSteering(const sf::Vector2f &currentPos,
                                                const sf::Vector2f &currentVel,
                                                float deltaTime) {
   // 1. Add a small random vector to the target's position

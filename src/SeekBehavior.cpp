@@ -4,13 +4,13 @@
 
 SeekBehavior::SeekBehavior(sf::Vector2f &target) : targetPosition(target) {}
 
-sf::Vector2f SeekBehavior::calculateMovement(const sf::Vector2f &currentPos,
+sf::Vector2f SeekBehavior::calculateSteering(const sf::Vector2f &currentPos,
                                              const sf::Vector2f &currentVel,
                                              float deltaTime) {
-  sf::Vector2f desiredVelocityChange =
+  sf::Vector2f desiredVelocity =
       normalize(targetPosition - currentPos) * MAX_VELOCITY;
-  sf::Vector2f steeringAcceleration = desiredVelocityChange - currentVel;
-  return steeringAcceleration;
+  sf::Vector2f steering = desiredVelocity - currentVel;
+  return steering;
 }
 
 sf::Vector2f SeekBehavior::normalize(const sf::Vector2f &v) {

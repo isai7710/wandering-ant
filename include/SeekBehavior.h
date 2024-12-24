@@ -7,7 +7,7 @@ public:
   SeekBehavior();
   SeekBehavior(sf::Vector2f &pos);
 
-  sf::Vector2f calculateMovement(const sf::Vector2f &currentPos,
+  sf::Vector2f calculateSteering(const sf::Vector2f &currentPos,
                                  const sf::Vector2f &currentVel,
                                  float deltaTime) override;
 
