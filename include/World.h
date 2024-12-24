@@ -25,5 +25,5 @@ private:
   std::vector<Ant> ants;
   const unsigned int width;
   const unsigned int height;
-  static constexpr std::size_t NUM_ANTS = 1;
+  static constexpr std::size_t NUM_ANTS = 3;
 };

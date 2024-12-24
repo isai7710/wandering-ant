@@ -1,5 +1,6 @@
 #include "Ant.h"
 #include <cmath>
+#include <random>
 
 Ant::Ant(unsigned int windowWidth, unsigned int windowHeight)
     : windowWidth(windowWidth), windowHeight(windowHeight),
@@ -11,6 +12,22 @@ Ant::Ant(unsigned int windowWidth, unsigned int windowHeight)
 
   directionLine[0].color = sf::Color::Yellow;
   directionLine[1].color = sf::Color::Yellow;
+
+  // Create random number generator
+  std::random_device rd;
+  std::mt19937 gen(rd());
+
+  // Generate random angle between 0 and 2π
+  std::uniform_real_distribution<float> angleDist(0, 2 * M_PI);
+  float randomAngle = angleDist(gen);
+
+  // Generate random speed between 0.5 and 1.0 of MAX_SPEED
+  std::uniform_real_distribution<float> speedDist(0.5f * MAX_SPEED, MAX_SPEED);
+  float randomSpeed = speedDist(gen);
+
+  // Set initial velocity using angle and speed
+  velocity.x = std::cos(randomAngle) * randomSpeed;
+  velocity.y = std::sin(randomAngle) * randomSpeed;
 }
 
 void Ant::setPosition(const sf::Vector2f &p) {
