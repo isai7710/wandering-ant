@@ -24,10 +24,11 @@ void Ant::setVelocity(const sf::Vector2f &v) { velocity = v; }
 
 void Ant::update(float deltaTime) {
   if (movementBehavior) {
-    sf::Vector2f steering =
+    sf::Vector2f steeringAcceleration =
         movementBehavior->calculateSteering(position, velocity, deltaTime);
 
-    velocity += steering * deltaTime;
+    // integrate acceleration to change the ants velocity accordingly
+    velocity += steeringAcceleration * deltaTime;
 
     // Clamp ant's velocity to MAX_SPEED to ensure it doesn't go over
     velocity = clampVector(velocity, MAX_SPEED);
