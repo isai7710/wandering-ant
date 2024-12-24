@@ -21,10 +21,11 @@ private:
 
   // Wander behavior parameters
   float wanderRadius = 50.0f;   // Radius of wander circle
-  float wanderDistance = 75.0f; // Distance of wander circle from agent
-  float wanderJitter = 7.0f;    // Maximum random displacement
+  float wanderDistance = 75.0f; // Distance of wander circle from ant
+  float wanderJitter = 30.0f;   // Maximum random displacement
 
+  static constexpr float MAX_ACCELERATION = 70.f;
   // Utility functions
-  sf::Vector2f getRandomVector();
+  sf::Vector2f getRandomUnitVector();
   sf::Vector2f normalize(const sf::Vector2f &v);
 };
