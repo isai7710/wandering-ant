@@ -17,9 +17,8 @@ private:
   void setupAnts();
 
   sf::CircleShape target{5.0f};
-  bool hasTarget = false;
   sf::Vector2f targetPosition;
-  bool seekMode = false;
+  bool hasTarget = false;
 
   void clearTarget();
 
