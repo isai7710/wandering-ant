@@ -1,7 +1,9 @@
 #include "World.h"
+#include "SeekBehavior.h"
 #include "WanderBehavior.h"
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <cmath>
 #include <memory>
 
 World::World(unsigned int width, unsigned int height)
@@ -14,13 +16,21 @@ void World::update(float deltaTime) {
   for (auto &ant : ants) {
     ant.update(deltaTime);
   }
+  if (hasTarget) {
+    for (auto &ant : ants) {
+      sf::Vector2f error = targetPosition - ant.getPosition();
+      if (std::sqrt(error.x * error.x + error.y * error.y) < 2.0f) {
+        clearTarget();
+      }
+    }
+  }
 }
 
 void World::draw(sf::RenderWindow &window) {
   for (const auto &ant : ants) {
     window.draw(ant);
   }
-  if (seekMode && hasTarget) {
+  if (hasTarget) {
     window.draw(target);
   }
 }
@@ -36,6 +46,10 @@ void World::updateTarget(sf::Vector2f position) {
     target.setFillColor(sf::Color::Green);
     hasTarget = true;
   }
+  for (auto &ant : ants) {
+    auto seekBehavior = std::make_unique<SeekBehavior>(targetPosition);
+    ant.setBehavior(std::move(seekBehavior));
+  }
 }
 
 sf::Vector2f World::getTargetPosition() { return targetPosition; }
@@ -45,12 +59,8 @@ void World::setupAnts() {
     Ant ant(width, height);
     ant.setPosition(sf::Vector2f(width / 2.f, height / 2.f));
     ant.setVelocity(sf::Vector2f(40.0f, 40.0f));
-
     auto wanderBehavior = std::make_unique<WanderBehavior>();
     ant.setBehavior(std::move(wanderBehavior));
-
-    // set seekMode to true only if ant's behavior is a pointer set to
-    // SeekBehavior
     ants.push_back(std::move(ant));
   }
 }
@@ -59,4 +69,8 @@ void World::clearTarget() {
   hasTarget = false;
   targetPosition = {0.0f, 0.0f};
   target.setFillColor(sf::Color::Transparent);
+  for (auto &ant : ants) {
+    auto wanderBehavior = std::make_unique<WanderBehavior>();
+    ant.setBehavior(std::move(wanderBehavior));
+  }
 }
